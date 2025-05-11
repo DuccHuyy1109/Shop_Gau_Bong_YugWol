@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Thanh toán";
+}
+
+<style>
+
+    }
+</style>
+
+<style>
+    .form-group {
+        color: black;
+    }
+    .table{
+        color:black;
+    }
+    .error {
+        color: orangered;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="">Thanh toán</h1>
+                    <p>Bạn hãy kiểm tra và điền đúng các thông tin của khách hàng và đơn hàng !!</p>
+                </div>
+            </div>
+            <hr />
+            @if (ViewBag.CheckCart != null)
+            {
+                <div class="row">
+                    <div id="show_success"></div>
+                    <div class="col-md-7">
+                        @*<div style="display:none" id="show_success"></div>*@
+                        @Html.Action("Partial_CheckOut", "GiohangCart")
+                    </div>
+                    <div class="col-md-5">
+                        @Html.Action("Partial_Item_ThanhToan", "GiohangCart")
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    Bạn chưa có game nào trong giỏ hàng, vui lòng quay lại trang  !
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+    <script>
+        function OnFailure(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("Bạn đã mua Game Thất bại! Xin vui lòng thử lại ❤ ");
+            }
+        }
+        $(document).ready(function () {
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
+                    },
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true,
+                        Email: true
+                    }
+                    },
+                    messages: {
+                        'CustomerName': 'Vui lòng điền đầy đủ thông tin',
+                        'Phone': 'Vui lòng điền đầy đủ thông tin',
+                        'Address': 'Vui lòng điền đầy đủ thông tin',
+                        'Email': 'Email chưa hợp lệ'
+                }
+            });
+        });
+    </script>
+}
+
+
